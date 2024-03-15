@@ -31,6 +31,9 @@ public class SecurityService {
                 .subject(authentication.getName())
                 .claim("scope", scope)
                 .build();
+        System.out.println( "scope is :"+scope);
+        System.out.println("claim is :"+claims.getClaims());
+
         return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 }

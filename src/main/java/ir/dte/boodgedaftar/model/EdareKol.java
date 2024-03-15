@@ -6,6 +6,7 @@ import java.util.List;
 
 public class EdareKol {
     private String name;
+    private String edarekolUrl;
     private BigDecimal takhsis = BigDecimal.ZERO;
     private BigDecimal mosavab = BigDecimal.ZERO;
     private BigDecimal amalkard = BigDecimal.ZERO;
@@ -61,13 +62,33 @@ public class EdareKol {
     public void setAmalkardNameDaryafty(BigDecimal amalkardNameDaryafty) {
         this.amalkardNameDaryafty = amalkardNameDaryafty;
     }
-
-
     public BigDecimal getGharardad() {
         return gharardad;
     }
 
     public void setGharardad(BigDecimal gharardad) {
         this.gharardad = gharardad;
+    }
+
+    public String getEdarekolUrl() {
+        return edarekolUrl;
+    }
+
+    public void setEdarekolUrl(String edarekolUrl) {
+        this.edarekolUrl = edarekolUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "EdareKol{" +
+                "name='" + name + '\'' +
+                ", edarekolUrl='" + edarekolUrl + '\'' +
+                ", takhsis=" + takhsis +
+                ", mosavab=" + mosavab +
+                ", amalkard=" + amalkard +
+                ", amalkardNameDaryafty=" + amalkardNameDaryafty +
+                ", gharardad=" + gharardad +
+                ", edareList=" + edareList +
+                '}';
     }
 }

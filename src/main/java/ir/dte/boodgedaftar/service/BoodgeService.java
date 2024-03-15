@@ -60,10 +60,10 @@ public class BoodgeService {
         return edareViewDto;
     }
 
-    public Edare getEdareDetails(String edareName){
+    public Edare getEdareDetails(String edareURL){
         for(Edare edare : boodgeDatabase.edareList)
         {
-            if (edare.getName().equals(edareName))
+            if (edare.getEdareURL().equals(edareURL))
             {
                 return edare;
             }
@@ -118,11 +118,11 @@ public class BoodgeService {
         return edareKolViewDto;
     }
 
-    public EdareKol getEdareKolDetails(String edareKolName)
+    public EdareKol getEdareKolDetails(String edareKolURL)
     {
         for (EdareKol edareKol : boodgeDatabase.edareKolList)
         {
-            if (edareKol.getName().equals(edareKolName))
+            if (edareKol.getEdarekolUrl().equals(edareKolURL))
             {
                 return edareKol;
             }

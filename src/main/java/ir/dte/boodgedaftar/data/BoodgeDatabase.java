@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Component("boodgeData")
@@ -39,10 +40,88 @@ public class BoodgeDatabase {
             Faaliat faaliat = new Faaliat();
             if (row.getCell(0) == null)
                 break;
-            faaliat.id = new BigDecimal(row.getCell(0).getNumericCellValue());
+            faaliat.id = BigDecimal.valueOf(row.getCell(0).getNumericCellValue());
             faaliat.title = row.getCell(1).getStringCellValue();
             faaliat.edareKol = row.getCell(2).getStringCellValue();
+            if (faaliat.edareKol.contains("فضای مجازی"))
+            {
+                faaliat.edareKolURL = "majazi";
+            }else if (faaliat.edareKol.contains("معاونت"))
+            {
+                faaliat.edareKolURL = "moavenat";
+            }else if (faaliat.edareKol.contains("امور اجرایی"))
+            {
+                faaliat.edareKolURL = "ejraii";
+            }else if (faaliat.edareKol.contains("هنر و رسانه"))
+            {
+                faaliat.edareKolURL = "honarvarasaneh";
+            }
             faaliat.edare = row.getCell(3).getStringCellValue();
+            if (faaliat.edare.contains("آموزش"))
+            {
+                faaliat.edareURL = "amoozesh";
+            } else if (faaliat.edare.contains("تصویری"))
+            {
+                faaliat.edareURL = "tasviri";
+            } else if (faaliat.edare.contains("تولیدات رسانه ای"))
+            {
+                faaliat.edareURL = "tolidatrasaneh";
+            } else if (faaliat.edare.contains("هنرهای تجسمی"))
+            {
+                faaliat.edareURL = "tajasomi";
+            } else if (faaliat.edare.contains("پشتیبانی و تعاملات رسانه ای"))
+            {
+                faaliat.edareURL = "poshtibanivataamolat";
+            } else if (faaliat.edare.contains("مشاوره و تامین محتوا"))
+            {
+                faaliat.edareURL = "moshaverehvatamin";
+            } else if (faaliat.edare.contains("انجمن ها"))
+            {
+                faaliat.edareURL = "anjoman";
+            } else if (faaliat.edare.contains("اداره نشریات"))
+            {
+                faaliat.edareURL = "nashriat";
+            } else if (faaliat.edare.contains("اداره هنرهای ادبی"))
+            {
+                faaliat.edareURL = "adabi";
+            } else if (faaliat.edare.contains("هزینه اداری عمومی"))
+            {
+                faaliat.edareURL  = "edarivaomoomi";
+            } else if (faaliat.edare.contains("اداره فناوری اطلاعات"))
+            {
+                faaliat.edareURL = "fanavari";
+            } else if (faaliat.edare.contains("اداره عرضه محصولات فرهنگی هنری"))
+            {
+                faaliat.edareURL = "arzeh";
+            } else if (faaliat.edare.contains("واحد کتابخانه"))
+            {
+                faaliat.edareURL =  "ketabkhaneh";
+            } else if (faaliat.edare.contains("حوزه معاونت"))
+            {
+                faaliat.edareURL = "moavenat";
+            } else if (faaliat.edare.contains("گروه برنامه و بودجه"))
+            {
+                faaliat.edareURL = "boodge";
+            } else if (faaliat.edare.contains("مدیریت راهبردی"))
+            {
+                faaliat.edareURL = "rahbordi";
+            } else if (faaliat.edare.contains("اداره تولید و تامین برنامه و محتوای فضای مجازی"))
+            {
+                faaliat.edareURL = "tolidvatamin";
+            } else if (faaliat.edare.contains("اداره پایش و رصد فضای مجازی"))
+            {
+                faaliat.edareURL = "payeshvarasad";
+            } else if (faaliat.edare.contains("اداره جذب و توسعه فعالان فضای مجازی"))
+            {
+                faaliat.edareURL = "jazbvatoseeh";
+            } else if (faaliat.edare.contains("اداره همکاری های فضای مجازی"))
+            {
+                faaliat.edareURL = "hamkariha";
+            } else if (faaliat.edare.contains("اداره کل فضای مجازی"))
+            {
+                faaliat.edareURL = "edarekolfazamajazi";
+            }
+
             if(faaliat.edare.contains("/"))
             {
                 StringBuilder edare = new StringBuilder(faaliat.edare);
@@ -52,27 +131,27 @@ public class BoodgeDatabase {
             faaliat.type = row.getCell(4).getStringCellValue();
             faaliat.ghotb = row.getCell(5).getStringCellValue();
             faaliat.miz = row.getCell(6).getStringCellValue();
-            faaliat.amalkardNameDaryafti = new BigDecimal(row.getCell(7).getNumericCellValue());
-            faaliat.gharardad = new BigDecimal(row.getCell(8).getNumericCellValue());
-            faaliat.baghimandeGharardad = new BigDecimal(row.getCell(9).getNumericCellValue());
-            faaliat.amalkardNameHayeDaryaftiVaBaghimandeGharardad = new BigDecimal(row.getCell(10).getNumericCellValue());
+            faaliat.amalkardNameDaryafti = BigDecimal.valueOf(row.getCell(7).getNumericCellValue());
+            faaliat.gharardad = BigDecimal.valueOf(row.getCell(8).getNumericCellValue());
+            faaliat.baghimandeGharardad = BigDecimal.valueOf(row.getCell(9).getNumericCellValue());
+            faaliat.amalkardNameHayeDaryaftiVaBaghimandeGharardad = BigDecimal.valueOf(row.getCell(10).getNumericCellValue());
             try {
-                faaliat.ghabelTakhsismenhayeBaghimandehGharardad = new BigDecimal(row.getCell(11).getNumericCellValue());
+                faaliat.ghabelTakhsismenhayeBaghimandehGharardad = BigDecimal.valueOf(row.getCell(11).getNumericCellValue());
             }catch (Exception e){
                 faaliat.ghabelTakhsismenhayeBaghimandehGharardad = BigDecimal.ZERO;
             }
-            faaliat.ghanoon = new BigDecimal(row.getCell(12).getNumericCellValue());
+            faaliat.ghanoon = BigDecimal.valueOf(row.getCell(12).getNumericCellValue());
             try {
-                faaliat.mosavabSate = new BigDecimal(row.getCell(13).getNumericCellValue());
+                faaliat.mosavabSate = BigDecimal.valueOf(row.getCell(13).getNumericCellValue());
             }catch (Exception e){
                 faaliat.mosavabSate = BigDecimal.ZERO;
             }
-            faaliat.takhsisSate = new BigDecimal(row.getCell(14).getNumericCellValue());
-            faaliat.amalkardSate = new BigDecimal(row.getCell(15).getNumericCellValue());
-            faaliat.amalkardTaahodi = new BigDecimal(row.getCell(16).getNumericCellValue());
-            faaliat.amalkardKol = new BigDecimal(row.getCell(17).getNumericCellValue());
+            faaliat.takhsisSate = BigDecimal.valueOf(row.getCell(14).getNumericCellValue());
+            faaliat.amalkardSate = BigDecimal.valueOf(row.getCell(15).getNumericCellValue());
+            faaliat.amalkardTaahodi = BigDecimal.valueOf(row.getCell(16).getNumericCellValue());
+            faaliat.amalkardKol = BigDecimal.valueOf(row.getCell(17).getNumericCellValue());
             try {
-                faaliat.ghabelTakhsis = new BigDecimal(row.getCell(18).getNumericCellValue());
+                faaliat.ghabelTakhsis = BigDecimal.valueOf(row.getCell(18).getNumericCellValue());
             }catch (Exception e){
                 faaliat.ghabelTakhsis = BigDecimal.ZERO;
             }
@@ -90,6 +169,72 @@ public class BoodgeDatabase {
         for (String edare : edareHa){
             Edare newEdare = new Edare();
             newEdare.setName(edare);
+
+            if (newEdare.getName().contains("آموزش"))
+            {
+                newEdare.setEdareURL("amoozesh");
+            } else if (newEdare.getName().contains("تصویری"))
+            {
+                newEdare.setEdareURL("tasviri");
+            } else if (newEdare.getName().contains("تولیدات رسانه ای"))
+            {
+                newEdare.setEdareURL("tolidatrasaneh");
+            } else if (newEdare.getName().contains("هنرهای تجسمی"))
+            {
+                newEdare.setEdareURL("tajasomi");
+            } else if (newEdare.getName().contains("پشتیبانی و تعاملات رسانه ای"))
+            {
+                newEdare.setEdareURL("poshtibanivataamolat");
+            } else if (newEdare.getName().contains("مشاوره و تامین محتوا"))
+            {
+                newEdare.setEdareURL("fmoshaverehvatamin");
+            } else if (newEdare.getName().contains("انجمن ها"))
+            {
+                newEdare.setEdareURL("anjoman");
+            } else if (newEdare.getName().contains("اداره نشریات"))
+            {
+                newEdare.setEdareURL("nashriat");
+            } else if (newEdare.getName().contains("اداره هنرهای ادبی"))
+            {
+                newEdare.setEdareURL("adabi");
+            } else if (newEdare.getName().contains("هزینه اداری عمومی"))
+            {
+                newEdare.setEdareURL("edarivaomoomi");
+            } else if (newEdare.getName().contains("اداره فناوری اطلاعات"))
+            {
+                newEdare.setEdareURL("fanavari");
+            } else if (newEdare.getName().contains("اداره عرضه محصولات فرهنگی هنری"))
+            {
+                newEdare.setEdareURL("arzeh");
+            } else if (newEdare.getName().contains("واحد کتابخانه"))
+            {
+                newEdare.setEdareURL("ketabkhaneh");
+            } else if (newEdare.getName().contains("حوزه معاونت"))
+            {
+                newEdare.setEdareURL("moavenat");
+            } else if (newEdare.getName().contains("گروه برنامه و بودجه"))
+            {
+                newEdare.setEdareURL("boodge");
+            } else if (newEdare.getName().contains("مدیریت راهبردی"))
+            {
+                newEdare.setEdareURL("rahbordi");
+            } else if (newEdare.getName().contains("اداره تولید و تامین برنامه و محتوای فضای مجازی"))
+            {
+                newEdare.setEdareURL("tolidvatamin");
+            } else if (newEdare.getName().contains("اداره پایش و رصد فضای مجازی"))
+            {
+                newEdare.setEdareURL("payeshvarasad");
+            } else if (newEdare.getName().contains("اداره جذب و توسعه فعالان فضای مجازی"))
+            {
+                newEdare.setEdareURL("jazbvatoseeh");
+            } else if (newEdare.getName().contains("اداره همکاری های فضای مجازی"))
+            {
+                newEdare.setEdareURL("hamkariha");
+            } else if (newEdare.getName().contains("اداره کل فضای مجازی"))
+            {
+                newEdare.setEdareURL("edarekolfazamajazi");
+            }
+
             for (Faaliat faaliat : faaliatList) {
                 if (faaliat.edare.equals(edare)){
                     newEdare.setEdareKol(faaliat.edareKol);
@@ -115,6 +260,21 @@ public class BoodgeDatabase {
         for (String edareKol :edareKols) {
             EdareKol newedareKol = new EdareKol();
             newedareKol.setName(edareKol);
+
+            if (newedareKol.getName().contains("فضای مجازی"))
+            {
+                newedareKol.setEdarekolUrl("majazi");
+            }else if (newedareKol.getName().contains("معاونت"))
+            {
+                newedareKol.setEdarekolUrl("moavenat");
+            }else if (newedareKol.getName().contains("امور اجرایی"))
+            {
+                newedareKol.setEdarekolUrl("ejraii");
+            }else if (newedareKol.getName().contains("هنر و رسانه"))
+            {
+                newedareKol.setEdarekolUrl("honarvarasaneh");
+            }
+
             for(Edare edare : edareList){
                 if (edare.getEdareKol().equals(edareKol)){
                     newedareKol.getEdareList().add(edare);
@@ -127,6 +287,8 @@ public class BoodgeDatabase {
             }
             edareKolList.add(newedareKol);
         }
+
+        System.out.println(edareKolList.toString());
 
         System.out.println("\n\n\n======================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================");
         for (Faaliat faaliat : faaliatList)

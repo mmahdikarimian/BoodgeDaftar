@@ -6,12 +6,15 @@ public class Faaliat {
     public BigDecimal id;
     public String title;
     public String edare;
+    public String edareURL;
     public String edareKol;
+    public String edareKolURL;
     public String type;
     public String ghotb;
     public String miz;
     public BigDecimal amalkardNameDaryafti;
     public BigDecimal gharardad;
+
     public BigDecimal baghimandeGharardad;
     public BigDecimal amalkardNameHayeDaryaftiVaBaghimandeGharardad;
     public BigDecimal ghabelTakhsismenhayeBaghimandehGharardad;
@@ -27,25 +30,27 @@ public class Faaliat {
     @Override
     public String toString() {
         return "Faaliat{" +
-                "Id=" + id +
-                ", Title='" + title + '\'' +
-                ", Edare='" + edare + '\'' +
-                ", EdareKol='" + edareKol + '\'' +
-                ", Type='" + type + '\'' +
-                ", Ghotb='" + ghotb + '\'' +
-                ", Miz='" + miz + '\'' +
-                ", AmalkardNameDaryafti=" + amalkardNameDaryafti +
-                ", Gharardad=" + gharardad +
-                ", BaghimandeGharardad=" + baghimandeGharardad +
-                ", AmalkardNameHayeDaryaftiVaBaghimandeGharardad=" + amalkardNameHayeDaryaftiVaBaghimandeGharardad +
-                ", GhabelTakhsismenhayeBaghimandehGharardad=" + ghabelTakhsismenhayeBaghimandehGharardad +
-                ", Ghanoon=" + ghanoon +
-                ", MosavabSate=" + mosavabSate +
-                ", TakhsisSate=" + takhsisSate +
-                ", AmalkardSate=" + amalkardSate +
-                ", AmalkardTaahodi=" + amalkardTaahodi +
-                ", AmalkardKol=" + amalkardKol +
-                ", GhabelTakhsis=" + ghabelTakhsis +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", edare='" + edare + '\'' +
+                ", edareURL='" + edareURL + '\'' +
+                ", edareKol='" + edareKol + '\'' +
+                ", edareKolURL='" + edareKolURL + '\'' +
+                ", type='" + type + '\'' +
+                ", ghotb='" + ghotb + '\'' +
+                ", miz='" + miz + '\'' +
+                ", amalkardNameDaryafti=" + amalkardNameDaryafti +
+                ", gharardad=" + gharardad +
+                ", baghimandeGharardad=" + baghimandeGharardad +
+                ", amalkardNameHayeDaryaftiVaBaghimandeGharardad=" + amalkardNameHayeDaryaftiVaBaghimandeGharardad +
+                ", ghabelTakhsismenhayeBaghimandehGharardad=" + ghabelTakhsismenhayeBaghimandehGharardad +
+                ", ghanoon=" + ghanoon +
+                ", mosavabSate=" + mosavabSate +
+                ", takhsisSate=" + takhsisSate +
+                ", amalkardSate=" + amalkardSate +
+                ", amalkardTaahodi=" + amalkardTaahodi +
+                ", amalkardKol=" + amalkardKol +
+                ", ghabelTakhsis=" + ghabelTakhsis +
                 '}';
     }
 }

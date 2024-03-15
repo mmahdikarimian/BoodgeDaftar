@@ -14,8 +14,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
@@ -29,29 +34,32 @@ public class SecurityConfig {
 
 	private final RsaKeyProperties rsaKeys;
 
-	public SecurityConfig(RsaKeyProperties rsaKeys)
-	{
+	public SecurityConfig(RsaKeyProperties rsaKeys) {
 		this.rsaKeys = rsaKeys;
 	}
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-	{
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//		System.out.println("hello "+SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 		System.out.println(rsaKeys.toString());
 		return http
 				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests( auth -> auth
-						.requestMatchers("boodge/showalledarekol").hasAnyRole("MOAVEN","ADMIN")
-						.requestMatchers("boodge/showalledare").hasAnyAuthority("level1","level2")
-						.requestMatchers("boodge/showedare/*")
-
-						.anyRequest().authenticated()
+								.requestMatchers("boodge/showalledarekol").hasAnyAuthority("SCOPE_ROLE_ADMIN","SCOPE_ROLE_MOAVEN")
+								.requestMatchers("boodge/edarekoldetails/**").hasAnyAuthority("SCOPE_ROLE_ADMIN","SCOPE_ROLE_MOAVEN")
+								.requestMatchers("boodge/edarekoldetails/majazi").hasAnyAuthority("SCOPE_ROLE_MODIRMAJAZI")
+								.requestMatchers("boodge/edarekoldetails/honarvarasaneh").hasAnyAuthority("SCOPE_ROLE_MODIRMARKAZ")
+								.requestMatchers("boodge/edarekoldetails/ejraii").hasAnyAuthority("SCOPE_ROLE_MODIREJRAII")
+						.requestMatchers("boodge/showalledare").hasAnyAuthority("SCOPE_ROLE_ADMIN","SCOPE_ROLE_MOAVEN")
+//						.requestMatchers("boodge/showedare/*").authenticated()
+								.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()))
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//				.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()))
+//				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.httpBasic(Customizer.withDefaults())
 				.build();
 	}
+
 
 	@Bean
 	public InMemoryUserDetailsManager users() {
@@ -90,26 +98,6 @@ public class SecurityConfig {
 				.build();
 
 		return new InMemoryUserDetailsManager(admin, moaven, modirOmoorEjraii, modirMarkazHonarVaRasaneh, modirMajazi);
-//		UserDetails modirAmoozesh = User.withDefaultPasswordEncoder()
-//				.username("modir-amoozesh")
-//				.password("modir-amoozesh")
-//				.roles("MODIRAMOOZESH")
-//				.build();
-//		UserDetails modirMarkazHonarVaRasaneh = User.withDefaultPasswordEncoder()
-//				.username("modir-markaz")
-//				.password("modir-markaz")
-//				.roles("MODIRMARKAZ")
-//				.build();
-//		UserDetails modirMajazi = User.withDefaultPasswordEncoder()
-//				.username("modir-majazi")
-//				.password("modir-majazi")
-//				.roles("MODIRMAJAZI")
-//				.build();
-//		UserDetails modirHoze = User.withDefaultPasswordEncoder()
-//				.username("modir-hozeh")
-//				.password("modir-hozeh")
-//				.roles("MODIRHOZEH")
-//				.build();
 	}
 
 	@Bean
@@ -123,97 +111,6 @@ public class SecurityConfig {
 		JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
 		return new NimbusJwtEncoder(jwks);
 	}
-
-
-
-
-//	private UserDetailsService userDetailsService;
-//
-//	public SecurityConfig(UserDetailsService userDetailsService){
-//		this.userDetailsService = userDetailsService;
-//	}
-
-//	@Bean
-//	public static PasswordEncoder passwordEncoder(){
-//		return new BCryptPasswordEncoder();
-//	}
-//
-//	@Bean
-//	public AuthenticationManager authenticationManager(
-//			AuthenticationConfiguration configuration) throws Exception {
-//		return configuration.getAuthenticationManager();
-//	}
-
-
-
-
-//	@Bean
-//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//
-//		http
-//				.csrf(AbstractHttpConfigurer::disable)
-//				.authorizeHttpRequests((authorize) -> authorize
-//								.requestMatchers("/v3/api-docs/**","/swagger-ui/**", "/swagger-ui.html").permitAll()
-//						.requestMatchers("boodge/showalledarekol").hasAnyRole("MOAVEN","ADMIN")
-//						.requestMatchers("boodge/showalledare").hasAnyRole("MOAVEN","ADMIN")
-//						.requestMatchers("/swagger-ui/index.html").hasAnyRole("MOAVEN","ADMIN")
-//						.anyRequest().authenticated())
-////				).httpBasic(Customizer.withDefaults())
-////				.formLogin((form) -> form
-////						.loginPage("/login")
-////						.successHandler(new CustomAuthenticationSuccessHandler())
-////						.permitAll()
-////				)
-//				.logout(LogoutConfigurer::permitAll);
-//		// @formatter:on
-//		return http.build();
-//	}
-
-
-
-	// @formatter:off
-//	@Bean
-//	public UserDetailsService userDetailsService() {
-//		UserDetails admin = User.withDefaultPasswordEncoder()
-//				.username("admin")
-//				.password("admin")
-//				.roles("ADMIN")
-//				.build();
-//		UserDetails moaven = User.withDefaultPasswordEncoder()
-//				.username("moaven")
-//				.password("moaven")
-//				.roles("MOAVEN")
-//				.build();
-////		UserDetails modirOmoorEjraii = User.withDefaultPasswordEncoder()
-////				.username("ejraii")
-////				.password("ejraii")
-////				.roles("MODIREJRAII")
-////				.build();
-////		UserDetails modirAmoozesh = User.withDefaultPasswordEncoder()
-////				.username("modir-amoozesh")
-////				.password("modir-amoozesh")
-////				.roles("MODIRAMOOZESH")
-////				.build();
-////		UserDetails modirMarkazHonarVaRasaneh = User.withDefaultPasswordEncoder()
-////				.username("modir-markaz")
-////				.password("modir-markaz")
-////				.roles("MODIRMARKAZ")
-////				.build();
-////		UserDetails modirMajazi = User.withDefaultPasswordEncoder()
-////				.username("modir-majazi")
-////				.password("modir-majazi")
-////				.roles("MODIRMAJAZI")
-////				.build();
-////		UserDetails modirHoze = User.withDefaultPasswordEncoder()
-////				.username("modir-hozeh")
-////				.password("modir-hozeh")
-////				.roles("MODIRHOZEH")
-////				.build();
-//		return new InMemoryUserDetailsManager(admin, moaven);
-////		return new InMemoryUserDetailsManager(admin, moaven, modirOmoorEjraii, modirAmoozesh, modirHoze,
-////				modirMajazi, modirMarkazHonarVaRasaneh);
-//	}
-
 }
 
 

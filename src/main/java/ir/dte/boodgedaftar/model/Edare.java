@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Edare {
     private String name;
+    private String edareURL;
     private String edareKol;
     private BigDecimal takhsis = BigDecimal.ZERO;
     private BigDecimal mosavab = BigDecimal.ZERO;
@@ -76,5 +77,28 @@ public class Edare {
 
     public void setGharardad(BigDecimal gharardad) {
         this.gharardad = gharardad;
+    }
+
+    public String getEdareURL() {
+        return edareURL;
+    }
+
+    public void setEdareURL(String edareURL) {
+        this.edareURL = edareURL;
+    }
+
+    @Override
+    public String toString() {
+        return "Edare{" +
+                "name='" + name + '\'' +
+                ", edareURL='" + edareURL + '\'' +
+                ", edareKol='" + edareKol + '\'' +
+                ", takhsis=" + takhsis +
+                ", mosavab=" + mosavab +
+                ", amalkard=" + amalkard +
+                ", amalkardNameDaryafti=" + amalkardNameDaryafti +
+                ", gharardad=" + gharardad +
+                ", faaliatList=" + faaliatList +
+                '}';
     }
 }

@@ -5,12 +5,11 @@ import ir.dte.boodgedaftar.dto.EdareViewDto;
 import ir.dte.boodgedaftar.model.Edare;
 import ir.dte.boodgedaftar.model.EdareKol;
 import ir.dte.boodgedaftar.service.BoodgeService;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/boodge")
@@ -31,10 +30,10 @@ public class BoodgeController {
     }
 
 
-    @GetMapping("/edaredetails/{edareName}")
-    public Edare getEdareDetails(@PathVariable String edareName)
+    @GetMapping("/edaredetails/{edareURL}")
+    public Edare getEdareDetails(@PathVariable String edareURL)
     {
-        return boodgeService.getEdareDetails(edareName);
+        return boodgeService.getEdareDetails(edareURL);
     }
 
     //endregion
@@ -46,11 +45,17 @@ public class BoodgeController {
     {
         return boodgeService.getAllEdareKol();
     }
-    @GetMapping("/edarekoldetails/{edareKolName}")
-    public EdareKol getEdareKolDetails(@PathVariable String edareKolName)
+    @GetMapping("/edarekoldetails/{edareKolURL}")
+    public EdareKol getEdareKolDetails(@PathVariable String edareKolURL)
     {
-        return boodgeService.getEdareKolDetails(edareKolName);
+        return boodgeService.getEdareKolDetails(edareKolURL);
     }
     //endregion
+
+    @GetMapping("/test")
+    public String test(Authentication authentication)
+    {
+        return "hello hello" +authentication.getAuthorities();
+    }
 
 }

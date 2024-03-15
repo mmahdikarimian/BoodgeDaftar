@@ -20,6 +20,7 @@ public class SecurityController
 
     @PostMapping("/login")
     public String token(Authentication authentication) {
+        System.out.println("hello :"+ authentication.getAuthorities());
         System.out.println("Token requested for user: "+authentication.getName());
         String token = tokenService.generateToken(authentication);
         System.out.println("Token granted: "+ token);
